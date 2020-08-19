@@ -11,8 +11,9 @@ README.html
 *.cab
 mvnw
 mvnw.cmd
-
+com/
 out/
+net/
 .gradle/
 
 # 如果文件已经提交到git上了，则先执行下面命令删除文件

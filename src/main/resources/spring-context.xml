@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <bean id="userService" class="com.shadow.aop.xml.service.UserServiceImpl" />
-    <bean id="myAdvisor" class="com.shadow.aop.xml.advisor.MyAdvisor"/>
+    <bean id="userService" class="com.shadow.aop.springProxy.xml.service.UserServiceImpl" />
+    <bean id="myAdvisor" class="com.shadow.aop.springProxy.xml.advisor.UserAdvisor"/>
 
     <bean id="myAop" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="proxyInterfaces">
-            <value>com.shadow.aop.xml.service.UserService</value>
+            <value>com.shadow.aop.springProxy.xml.service.UserService</value>
         </property>
 
         <property name="interceptorNames">
@@ -19,6 +23,17 @@
 
         <property name="target" ref="userService"/>
     </bean>
+
+    <!-- 开启 @AspectJ 支持-->
+    <aop:aspectj-autoproxy/>
+    <bean id="personService" class="com.shadow.aop.springProxy.xml.service.PersonService"/>
+    <bean id="personAdvisor" class="com.shadow.aop.springProxy.xml.advisor.PersonAdvisor"/>
+    <aop:config>
+        <aop:aspect ref="personAdvisor">
+            <aop:pointcut expression="execution(* com.shadow.aop.springProxy.xml.service.PersonService.*(..))" id="pointcut"/>
+            <aop:around method="around" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
 
 
 </beans>

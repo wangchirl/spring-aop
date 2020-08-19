@@ -1,4 +1,4 @@
-package com.shadow.aop.statics;
+package com.shadow.aop.proxy.statics;
 
 /**
  * @author shadow

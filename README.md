@@ -60,6 +60,6 @@
  *
  *
  * 11、查看生成的代理类信息(JVM参数)
- *  > -Dsun.misc.ProxyGenerator.saveGeneratedFiles=true
- *
+ *  >JDK动态代理： -Dsun.misc.ProxyGenerator.saveGeneratedFiles=true 或者 System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true"); 
+ *  >CGLIB代理： System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "./");
  *
